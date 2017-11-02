@@ -34,7 +34,13 @@
 </head>
 
 <body class="login-container">
-
+    
+    
+    <c:if test="${message!=null }">
+        <script type="text/javascript">
+              alert("登录失败，账户名或密码错误");
+        </script>
+    </c:if>
     <!-- Main navbar -->
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
@@ -84,7 +90,7 @@
                 <div class="content">
 
                     <!-- Advanced login -->
-                    <form action="index.html">
+                    <form id="login_form" action="${prc }/user.do?login" method="post">
                         <div class="panel panel-body login-form">
                             <div class="text-center">
                                 <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
@@ -92,14 +98,14 @@
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input name="username" value="${user.username }" class="form-control" placeholder="Username">
                                 <div class="form-control-feedback">
                                     <i class="icon-user text-muted"></i>
                                 </div>
                             </div>
 
                             <div class="form-group has-feedback has-feedback-left">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input name="password" type="password" class="form-control" placeholder="Password">
                                 <div class="form-control-feedback">
                                     <i class="icon-lock2 text-muted"></i>
                                 </div>
@@ -120,7 +126,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn bg-blue btn-block">登录 <i class="icon-arrow-right14 position-right"></i></button>
+                                <button  id="btn_login" type="submit" class="btn bg-blue btn-block">登录 <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
 
                             <div class="content-divider text-muted form-group"><span>第三方登录</span></div>
@@ -156,6 +162,39 @@
 
     </div>
     <!-- /page container -->
+    
+<script type="text/javascript">
+$(function(){
+	
+	$("#btn_login").click(function(){
+		if(check()){
+			$("#login_form").submit();
+		}else{
+			return false;
+		}
+	})
+	
+	function check(){
+		
+		if($("input[name=username]").val()==""){
+			alert("请输入用户名");
+			return false;
+		}
+		
+		if($("input[name=password]").val()==""){
+			alert("密码不能为空");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+})
+
+
+</script>
+
 
 </body>
 </html>

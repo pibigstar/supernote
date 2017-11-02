@@ -36,6 +36,12 @@
 
 <body class="login-container">
 
+    <c:if test="${message!=null }">
+        <script type="text/javascript">
+               $()
+        
+        </script>
+    </c:if>
     <!-- Main navbar -->
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
@@ -165,6 +171,33 @@
 <script type="text/javascript">
 $(function(){
 	
+	//检测用户名是否已存在
+	
+	
+	
+	$("input[name=username]").blur(function(){
+		$.ajax({
+			url:'${prc}/user.do?checkUsername',
+			data:{"username":$("input[name=username]").val()},
+			type:'POST',
+			dataType:'json',
+			success:function(data){
+				if(!data.success){
+					$("#username_error").removeClass();
+			        $("#username_error").addClass("help-block text-danger");
+				}
+			}
+		})
+	});
+	
+	$("input[name=username]").focus(function(){
+        $("#username_error").removeClass();
+        $("#username_error").addClass("help-block text-danger hidden");
+    })
+	
+	
+	
+	//注册
 	$("#btn_regist").click(function(){
 		if(check()){
 			$("#myForm").submit();
