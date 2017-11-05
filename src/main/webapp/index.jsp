@@ -250,9 +250,10 @@
 
                      <!-- 编辑区 -->
                     <div class="panel panel-flat">
-                     <form action="note.do?add" method="post" >
+                     <form action="note.do?addNote" method="post" >
                         <div class="panel-heading">
-                        <input type="text" name="title" style="border:none;width:500px;height:30px" value="无标题笔记" />
+                        <input type="text" name="nTitle" style="border:none;width:500px;height:30px" value="无标题笔记" />
+                        <input type="hidden" name="classifyId" value="1"> 
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><button type="submit" class="btn bg-teal-400">保存<i class="icon-arrow-right14 position-right"></i></button></li>
@@ -263,7 +264,7 @@
 
                         <div class="panel-body">
                                 <div class="content-group">
-                                    <textarea name="content" id="editor-full" rows="4" cols="4">
+                                    <textarea name="nContent" id="editor-full" rows="4" cols="4">
                                     </textarea>
                                 </div>
                             </form>
