@@ -15,6 +15,7 @@
     <link href="${layoutCss}/core.css" rel="stylesheet" type="text/css">
     <link href="${layoutCss}/components.css" rel="stylesheet" type="text/css">
     <link href="${layoutCss}/colors.css" rel="stylesheet" type="text/css">
+    <link href="${myCss}/smartMenu.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
@@ -22,6 +23,7 @@
     <script type="text/javascript" src="${layoutJs}/core/libraries/jquery.min.js"></script>
     <script type="text/javascript" src="${layoutJs}/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="${layoutJs}/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="${myJs}/jquery-smartMenu.js"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
@@ -209,20 +211,23 @@
                                 <li class="navigation-header"><span>我的笔记</span> <i class="icon-menu" title="Forms"></i></li>
                                 
                                  <li>
-                                    <a href="#"><i class="icon-folder3"></i> <span>我的文件夹</span></a>
+                                    <a class="MyFolder"><input type="hidden" value="0">
+                                    <i class="icon-folder3"></i><span>我的文件夹</span></a>
                                     <ul>
                                         <li>
-                                            <a href="#">Java笔记</a>
+                                            <a class="MyFolder"><input type="hidden" value="1">
+                                            <i class="icon-folder3"></i><span>Java笔记</span></a>
                                             <ul>
-                                                <li><a href="starters/3_col_dual.html">笔记1</a></li>
-                                                <li><a href="starters/3_col_double.html">笔记2</a></li>
+                                                <a href="#"><li class="icon-pencil3"></li><span>笔记1</span></a>
+                                                <a href="#"><li class="icon-pencil3"></li><span>笔记2</span></a>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#">python笔记</a>
+                                       <li>
+                                             <a class="MyFolder"><input type="hidden" value="2">
+                                             <i class="icon-folder3"></i><span>python笔记</span></a>
                                             <ul>
-                                                <li class="icon-pencil3"><a href="starters/detached_left.html">笔记1</a></li>
-                                                <li class="icon-pencil3"><a href="starters/detached_sticky.html">笔记2</a></li>
+                                                <a href="#"><li class="icon-pencil3"></li><span>笔记1</span></a>
+                                                <a href="#"><li class="icon-pencil3"></li><span>笔记2</span></a>
                                             </ul>
                                         </li>
                                     </ul>
@@ -288,6 +293,66 @@
 
     </div>
     <!-- /page container -->
+<script>
+
+$(function(){
+	
+	$(".MyFolder").click(function(){
+		var id = $(this).find("input").val();
+		
+		$.ajax({
+			url:'classify.do?select',
+			type:'POST',
+			dataType:'json',
+			data:{"id":id},
+			success:function(d){
+				
+			    if(d.success){
+			    	$(this).append("");
+			    }
+				
+			}
+		})
+		
+		
+	});
+	
+	
+})
+
+//鼠标右键菜单
+var NewMyFile = [
+    [{
+        text: "新建",
+        data: [[{
+            text: "新建文件夹",
+            func: function() {
+            	var pid = $(this).find("input").val();
+            	
+            	$.ajax({
+            		
+            		url:'${prc}/classify.do?add',
+            		type:'POST',
+            		dataType:'json',
+            		data:{"pid":pid},
+            		success:function(data){
+            			
+            		}
+            		
+            	});
+            }
+        }, {
+            text: "新建文件",
+            func: function() {
+                $(this).css("border", "5px solid #a0b3d6");
+            }
+        }]]
+    }]];
+    
+$(".MyFolder").smartMenu(NewMyFile, {
+    name: "image"   
+});
+</script>
 
 </body>
 </html>
