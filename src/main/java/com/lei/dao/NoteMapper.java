@@ -1,5 +1,7 @@
 package com.lei.dao;
 
+import java.util.List;
+
 import com.lei.entity.Note;
 
 public interface NoteMapper {
@@ -14,4 +16,6 @@ public interface NoteMapper {
     int updateByPrimaryKeySelective(Note record);
 
     int updateByPrimaryKey(Note record);
+
+	List<Note> getNotesByClassifyId(String id);
 }

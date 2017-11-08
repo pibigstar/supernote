@@ -25,6 +25,31 @@
     <script type="text/javascript" src="${layoutJs}/plugins/loaders/blockui.min.js"></script>
     <script type="text/javascript" src="${myJs}/jquery-smartMenu.js"></script>
     <!-- /core JS files -->
+<script type="text/javascript">
+ $(function(){
+    $(".MyFolder").click(function(){
+        var id = $(this).find("input").val();
+        var m = $(this);
+        $(m).empty();
+        $.ajax({
+            url:'${prc}/classify.do?select',
+            type:'POST',
+            dataType:'json',
+            data:{"pid":id},
+            success:function(d){
+                if(d.success){
+                    $.each(d.object.classifies,function(index,value){
+                    	$(m).after("<ul><li><a class='MyFolder'><input type='hidden'value='"+d.object.classifies[index].id+"'><i class='icon-folder3'></i><span>"+d.object.classifies[index].name+"</span></a><ul>")
+                    });
+                }
+            }
+        })
+        
+    });
+})
+</script>
+
+
 
     <!-- Theme JS files -->
     <script type="text/javascript" src="${prc}/bootstrap/ckeditor/ckeditor.js"></script>
@@ -33,7 +58,7 @@
     <script type="text/javascript" src="${layoutJs}/core/app.js"></script>
     <script type="text/javascript" src="${layoutJs}/pages/editor_ckeditor.js"></script>
     <!-- /theme JS files -->
-
+    
 </head>
 
 <body>
@@ -214,22 +239,7 @@
                                     <a class="MyFolder"><input type="hidden" value="0">
                                     <i class="icon-folder3"></i><span>我的文件夹</span></a>
                                     <ul>
-                                        <li>
-                                            <a class="MyFolder"><input type="hidden" value="1">
-                                            <i class="icon-folder3"></i><span>Java笔记</span></a>
-                                            <ul>
-                                                <a href="#"><li class="icon-pencil3"></li><span>笔记1</span></a>
-                                                <a href="#"><li class="icon-pencil3"></li><span>笔记2</span></a>
-                                            </ul>
-                                        </li>
-                                       <li>
-                                             <a class="MyFolder"><input type="hidden" value="2">
-                                             <i class="icon-folder3"></i><span>python笔记</span></a>
-                                            <ul>
-                                                <a href="#"><li class="icon-pencil3"></li><span>笔记1</span></a>
-                                                <a href="#"><li class="icon-pencil3"></li><span>笔记2</span></a>
-                                            </ul>
-                                        </li>
+                                      
                                     </ul>
                                 </li>
                                 <!-- /page kits -->
@@ -294,31 +304,6 @@
     </div>
     <!-- /page container -->
 <script>
-
-$(function(){
-	
-	$(".MyFolder").click(function(){
-		var id = $(this).find("input").val();
-		
-		$.ajax({
-			url:'classify.do?select',
-			type:'POST',
-			dataType:'json',
-			data:{"id":id},
-			success:function(d){
-				
-			    if(d.success){
-			    	$(this).append("");
-			    }
-				
-			}
-		})
-		
-		
-	});
-	
-	
-})
 
 //鼠标右键菜单
 var NewMyFile = [

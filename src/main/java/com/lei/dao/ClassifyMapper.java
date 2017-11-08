@@ -1,5 +1,7 @@
 package com.lei.dao;
 
+import java.util.List;
+
 import com.lei.entity.Classify;
 
 public interface ClassifyMapper {
@@ -14,4 +16,6 @@ public interface ClassifyMapper {
     int updateByPrimaryKeySelective(Classify record);
 
     int updateByPrimaryKey(Classify record);
+
+	List<Classify> getClassifyByPid(String pid);
 }
