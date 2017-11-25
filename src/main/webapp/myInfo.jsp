@@ -39,7 +39,7 @@
             success:function(d){
                 if(d.success){
                     $.each(d.object.classifies,function(index,value){
-                    	$(m).after("<ul><li><a class='MyFolder'><input type='hidden'value='"+d.object.classifies[index].id+"'><i class='icon-folder3'></i><span>"+d.object.classifies[index].name+"</span></a><ul>")
+                        $(m).after("<ul><li><a class='MyFolder'><input type='hidden'value='"+d.object.classifies[index].id+"'><i class='icon-folder3'></i><span>"+d.object.classifies[index].name+"</span></a><ul>")
                     });
                 }
             }
@@ -263,28 +263,69 @@
                 <!-- Content area -->
                 <div class="content">
 
-                     <!-- 编辑区 -->
-                    <div class="panel panel-flat">
-                     <form action="note.do?addNote" method="post" >
-                        <div class="panel-heading">
-                        <input type="text" name="nTitle" style="border:none;width:500px;height:30px" value="无标题笔记" />
-                        <input type="hidden" name="classifyId" value="1"> 
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><button type="submit" class="btn bg-teal-400">保存<i class="icon-arrow-right14 position-right"></i></button></li>
-                                    <li class="icon-share3"></li>
-                                </ul>
+                     <!-- 个人信息修改 -->
+                  <form action="${prc }/user.do?updateUser" method="post"  enctype="multipart/form-data">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <h5 class="panel-title">个人信息修改</h5>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                                <li><a data-action="close"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                      
+                                        <div class="form-group">
+                                            <label>用户名：</label> <input name="username" value="${user.username }" class="form-control" readonly="readonly">
+                                                <input name="id" value="${user.id }" type="hidden">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>密码:</label><input name="password" type="password" value="${user.password }" class="form-control" readonly="readonly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>昵称：</label> <input name="nick" value="${user.nick }" class="form-control" placeholder="请输入你的昵称">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>头像:</label> 
+                                            <input name="headFile" type="file" class="file-input"> 
+                                            <span class="help-block">只能上传: gif, png, jpg.文件大小不能超过 5MB</span>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>邮箱：</label> <input name="email"  value="${user.email }" class="form-control" placeholder="请输入你的邮箱">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>手机号：</label> <input name="phone"  value="${user.phone }" class="form-control" placeholder="请输入你的手机号">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>地址：</label> <input name="address"  value="${user.address }" class="form-control" placeholder="请输入你的地址">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>个性签名:</label>
+                                            <textarea rows="5" cols="5" class="form-control" placeholder="请输入内容"></textarea>
+                                        </div>
+
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-primary">提交
+                                                <i class="icon-arrow-right14 position-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </form>
 
-                        <div class="panel-body">
-                                <div class="content-group">
-                                    <textarea name="nContent" id="editor-full" rows="4" cols="4">
-                                    </textarea>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
           
                     <!-- Footer -->
                     <div class="footer text-muted">
@@ -312,19 +353,19 @@ var NewMyFile = [
         data: [[{
             text: "新建文件夹",
             func: function() {
-            	var pid = $(this).find("input").val();
-            	
-            	$.ajax({
-            		
-            		url:'${prc}/classify.do?add',
-            		type:'POST',
-            		dataType:'json',
-            		data:{"pid":pid},
-            		success:function(data){
-            			
-            		}
-            		
-            	});
+                var pid = $(this).find("input").val();
+                
+                $.ajax({
+                    
+                    url:'${prc}/classify.do?add',
+                    type:'POST',
+                    dataType:'json',
+                    data:{"pid":pid},
+                    success:function(data){
+                        
+                    }
+                    
+                });
             }
         }, {
             text: "新建文件",
