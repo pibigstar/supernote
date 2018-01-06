@@ -153,7 +153,7 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="${prc }/toMyInfo.do"><i class="icon-user-plus"></i> 我的信息</a></li>
+                        <li><a href="${prc }/myInfo.jsp"><i class="icon-user-plus"></i> 我的信息</a></li>
                         <li><a href="#"><i class="icon-coins"></i> 我的头像</a></li>
                         <li><a href="#"><span class="badge bg-teal-400 pull-right">5</span> <i class="icon-comment-discussion"></i> 我的信息</a></li>
                         <li class="divider"></li>
@@ -229,7 +229,7 @@
                                   <li>
                                     <a href="#"><i class="icon-trash"></i> <span>回收站</span></a>
                                     <ul>
-                                        <li><a href="">测试文档</a></li>
+                                        <li><a href="#">测试文档</a></li>
                                     </ul>
                                 </li>
                                
@@ -271,7 +271,7 @@
 
                      <!-- 编辑区 -->
                     <div class="panel panel-flat">
-                     <form action="addNote.do" method="post" >
+                     <form action="updateNote.do" method="post" >
                         <div class="panel-heading">
                         <input type="text" name="nTitle" style="border:none;width:500px;height:30px" value="${myNote.nTitle}"><c:if test="${myNote==null }">无标题文本</c:if></input>
                         <input type="hidden" name="classifyId" value="1"> 

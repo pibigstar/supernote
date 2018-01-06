@@ -27,7 +27,7 @@
     <!-- /core JS files -->
 <script type="text/javascript">
  $(function(){
-    $(".MyFolder").click(function(){
+    $("#MyFolder").click(function(){
         var id = $(this).find("input").val();
         var m = $(this);
         $(m).empty();
@@ -148,7 +148,7 @@
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="${layoutImages}/placeholder.jpg" alt="">
-                        <span>Victoria</span>
+                        <span>${user.username }</span>
                         <i class="caret"></i>
                     </a>
 
@@ -212,34 +212,39 @@
                                 <li>
                                     <a href="#"><i class="icon-copy"></i> <span>最新文档</span></a>
                                     <ul>
-                                        <li class="disabled"><a href="#" id="layout6">文件1<span class="label label-transparent">Coming soon</span></a></li>
+                                       <c:forEach items="${newNotes }" var="note">
+                                    	 <li><a href="showNote.do?id=${note.id }" id="layout6">${note.nTitle}<span class="label label-transparent"></span></a></li>
+                                    </c:forEach>
                                     </ul>
                                 </li>
                                 
                                 <li>
                                     <a href="#"><i class="icon-file-text3"></i> <span>常看文档</span></a>
-                                    <ul>
-                                        <li><a href="colors_primary.html">文档一</a></li>
+                                     <ul>
+                                       <c:forEach items="${newNotes }" var="note">
+                                    	 <li><a href="showNote.do?id=${note.id }" id="layout6">${note.nTitle}<span class="label label-transparent"></span></a></li>
+                                    </c:forEach>
                                     </ul>
                                 </li>
                                   <li>
                                     <a href="#"><i class="icon-trash"></i> <span>回收站</span></a>
                                     <ul>
-                                        <li><a href="colors_primary.html">文档一</a></li>
+                                        <li><a href="#">测试文档</a></li>
                                     </ul>
                                 </li>
                                
-                                <li><a href="changelog.html"><i class="icon-list-unordered"></i> <span>版本 <span class="label bg-blue-400">1.5</span></span></a></li>
+                                <li><a><i class="icon-list-unordered"></i> <span>版本 <span class="label bg-blue-400">1.5</span></span></a></li>
                                 <!-- /main -->
 
                                 <!-- Forms -->
                                 <li class="navigation-header"><span>我的笔记</span> <i class="icon-menu" title="Forms"></i></li>
-                                
                                  <li>
                                     <a class="MyFolder"><input type="hidden" value="0">
-                                    <i class="icon-folder3"></i><span>我的文件夹</span></a>
-                                    <ul>
-                                      
+                                    <i class="icon-folder3"></i><span>我的笔记</span></a>
+                                     <ul>
+                                       <c:forEach items="${newNotes }" var="note">
+                                    	 <li><a href="showNote.do?id=${note.id }" id="layout6">${note.nTitle}<span class="label label-transparent"></span></a></li>
+                                    </c:forEach>
                                     </ul>
                                 </li>
                                 <!-- /page kits -->

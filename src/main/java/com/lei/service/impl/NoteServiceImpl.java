@@ -1,6 +1,7 @@
 package com.lei.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -21,10 +22,30 @@ public class NoteServiceImpl implements NoteServiceI{
 	@Override
 	public void save(Note note) {
 		
-		note.setId(UUID.randomUUID().toString());
 		note.setCreateTime(DateUtil.format(new Date()));
 		note.setUpdateTime(DateUtil.format(new Date()));
+		if (noteMapper.selectCount(note.getId())>0) {
+			noteMapper.updateByPrimaryKey(note);
+		}else {
+			noteMapper.insertSelective(note);
+		}
 		
-		noteMapper.insert(note);
+	}
+
+	@Override
+	public List<Note> getList(String userId) {
+		
+		return noteMapper.getListByUserId(userId);
+	}
+
+	@Override
+	public Note getNote(String id) {
+		return noteMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void update(Note note) {
+		noteMapper.updateByPrimaryKeySelective(note);
+		
 	}
 }

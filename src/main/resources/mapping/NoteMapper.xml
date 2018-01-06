@@ -21,6 +21,17 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
   
+ <select id="selectCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from t_notes where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_notes
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  
   <select id="getNotesByClassifyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -41,7 +52,8 @@
       #{nAuthor,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{classifyId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.lei.entity.Note" >
+  
+ <insert id="insertSelective" parameterType="com.lei.entity.Note" >
     insert into t_notes
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

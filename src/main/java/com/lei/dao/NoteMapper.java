@@ -16,6 +16,12 @@ public interface NoteMapper {
     int updateByPrimaryKeySelective(Note record);
 
     int updateByPrimaryKey(Note record);
+    
+    int saveOrUpdate(Note record);
+    
+    int selectCount(String id);
 
 	List<Note> getNotesByClassifyId(String id);
+
+	List<Note> getListByUserId(String userId);
 }

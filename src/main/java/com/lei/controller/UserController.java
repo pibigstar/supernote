@@ -1,5 +1,7 @@
 package com.lei.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lei.entity.Note;
 import com.lei.entity.User;
 import com.lei.model.JsonModel;
+import com.lei.service.NoteServiceI;
 import com.lei.service.UserServiceI;
 
 @Controller
@@ -19,6 +23,9 @@ public class UserController {
 	
 	@Resource
 	private UserServiceI userService;
+	
+	@Resource
+	private NoteServiceI noteService;
 	
 	/**
 	 * 用户注册
@@ -60,8 +67,13 @@ public class UserController {
 		User exitUser = userService.login(user);
 		
 		if (exitUser!=null) {
+			
+			List<Note> notes = noteService.getList(exitUser.getId());
+			
+			modelMap.put("newNotes", notes);
+			
 			session.setAttribute("user", exitUser);
-			return "redirect:index.jsp";
+			return "index";
 		}
 		modelMap.put("message","登录失败，账号或密码错误！");
 		return "userLogin";
@@ -87,5 +99,13 @@ public class UserController {
 		}
 		return j;
 	}
-
+	
+	@RequestMapping(params = "updateUser")
+	public String updateUser(User user) {
+		userService.update(user);
+		
+		return "redirect:toMyInfo.do";
+		
+	}
+	
 }

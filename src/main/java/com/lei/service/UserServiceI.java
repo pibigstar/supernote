@@ -10,4 +10,8 @@ public interface UserServiceI {
 
 	public User login(User user);
 
+	public void update(User user);
+
+	public User getUserById(String id);
+
 }
